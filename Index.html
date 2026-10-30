@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Котэ ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:Georgia,serif;min-height:100vh;overflow-x:hidden;
+background:radial-gradient(circle at 20% 10%,#3b1f47 0%,#1a1030 55%,#0d0820 100%);color:#ffe9f2}
+.fh{position:fixed;font-size:18px;opacity:.22;pointer-events:none;animation:rise linear infinite;z-index:0}
+@keyframes rise{from{transform:translateY(105vh) rotate(0)}to{transform:translateY(-10vh) rotate(360deg)}}
+main{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:36px 16px 60px;text-align:center}
+h1{font-size:36px;letter-spacing:2px;background:linear-gradient(90deg,#ff9ec4,#ffd75e,#ff9ec4);-webkit-background-clip:text;background-clip:text;color:transparent;animation:glow 3s ease-in-out infinite}
+@keyframes glow{50%{filter:brightness(1.3)}}
+.sub{font-size:13px;color:#d9b8ff;margin-top:4px}
+.cd{margin:16px 0;background:#ffffff10;border:1px solid #ffffff22;border-radius:20px;padding:16px;backdrop-filter:blur(6px)}
+.cd .lbl{font-size:12px;color:#d9b8ff;letter-spacing:2px}
+.cd .num{font-size:58px;font-weight:700;color:#ffd75e;line-height:1.1;text-shadow:0 0 24px #ffd75e55}
+.cd .clock{font-size:14px;color:#b79ad9;margin-top:2px;font-variant-numeric:tabular-nums}
+.cd .arrive{font-size:14px;color:#ffd7e8;margin-top:8px}
+.prog{font-size:12px;color:#b79ad9;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:18px 0 6px}
+.win{position:relative;aspect-ratio:1;border-radius:12px;border:1px solid #ffffff22;background:#ffffff0d;
+display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;color:#d9b8ff;cursor:pointer;transition:transform .15s}
+.win:active{transform:scale(.92)}
+.win .d{font-size:12px;font-weight:700}
+.win .ic{font-size:15px;margin-top:2px}
+.win.lock{opacity:.35;cursor:not-allowed}
+.win.open{background:linear-gradient(135deg,#ff7bac33,#8e4ec633);border-color:#ff9ec466}
+.win.today{border-color:#ffd75e;box-shadow:0 0 0 2px #ffd75e55,0 0 18px #ffd75e44;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 4px #ffd75e33,0 0 26px #ffd75e66}}
+.note{font-size:12px;color:#b79ad9;margin:6px 0 18px}
+.letter{background:#ffffff12;border:1px solid #ffffff22;border-radius:18px;padding:16px;margin:14px 0;min-height:90px;font-size:15px;line-height:1.7;text-align:left;backdrop-filter:blur(6px)}
+.cursor{animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
+button.act{display:block;width:100%;margin:12px auto;padding:15px;border:none;border-radius:16px;font-family:Georgia,serif;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s}
+button.act:active{transform:scale(.95)}
+#reasonBtn{background:linear-gradient(135deg,#8e4ec6,#6a3fd8);color:#fff;box-shadow:0 5px 0 #4a2a99}
+.reason{min-height:54px;font-size:17px;font-style:italic;color:#ffd7e8;opacity:0;transition:opacity .6s,transform .6s;transform:translateY(8px)}
+.reason.show{opacity:1;transform:none}
+.heart{background:none;border:none;font-size:70px;line-height:1;margin:14px auto;width:auto;cursor:pointer;filter:drop-shadow(0 0 18px #ff4d8d88);animation:beat 1.2s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}30%{transform:scale(1.15)}}
+.taps{font-size:13px;color:#d9b8ff;min-height:20px}
+#finalBtn{background:linear-gradient(135deg,#ff7bac,#e0447e);color:#fff;box-shadow:0 5px 0 #a82a58}
+.ov{position:fixed;inset:0;background:#0d0820dd;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:50;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s}
+.ov.show{opacity:1;pointer-events:auto}
+.ov .card{background:linear-gradient(160deg,#3b1f47,#1a1030);border:1px solid #ff9ec455;border-radius:22px;padding:26px 22px;max-width:340px;text-align:center;box-shadow:0 20px 60px #000a;transform:scale(.9);transition:transform .3s}
+.ov.show .card{transform:scale(1)}
+.ov .date{font-size:12px;color:#ffd75e;letter-spacing:2px;margin-bottom:10px}
+.ov .msg{font-size:19px;line-height:1.6;color:#ffe9f2;font-style:italic}
+.ov .close{margin-top:18px;padding:12px 26px;border:none;border-radius:14px;background:linear-gradient(135deg,#ff7bac,#e0447e);color:#fff;font-weight:700;cursor:pointer}
+.pop{position:fixed;font-size:24px;pointer-events:none;z-index:60;animation:pop 1.4s forwards}
+@keyframes pop{from{opacity:1;transform:translateY(0) scale(.6)}to{opacity:0;transform:translateY(-140px) scale(1.4)}}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#3b1f47;border:1px solid #ff9ec455;color:#ffe9f2;padding:10px 20px;border-radius:14px;font-size:13px;z-index:70;opacity:0;transition:.3s}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<main>
+<h1>Котэ ❤️</h1>
+<div class="sub">твой личный адвент-календарь любви</div>
+<div class="cd">
+<div class="lbl">ДО НОВОГО ГОДА</div>
+<div class="num" id="dnum">—</div>
+<div class="clock" id="dclock"></div>
+<div class="arrive">а 30 декабря я приеду к тебе 🚂</div>
+<div class="prog" id="prog"></div>
+</div>
+<div class="grid" id="grid"></div>
+<div class="note">🤍 открывай по одному окошку в день — внутри твои слова</div>
+<div class="letter"><span id="type"></span><span class="cursor">|</span></div>
+<button class="act" id="reasonBtn">Почему я тебя люблю? 💭</button>
+<div class="reason" id="reason"></div>
+<button class="heart" id="heartBtn">❤️</button>
+<div class="taps" id="taps">нажимай на сердечко…</div>
+<button class="act" id="finalBtn">Ещё один сюрприз… 🎁</button>
+</main>
+<div class="ov" id="ov"><div class="card"><div class="date" id="ovDate"></div><div class="msg" id="ovMsg"></div><button class="close" id="ovClose">закрыть 🤍</button></div></div>
+<div class="toast" id="toast"></div>
+<script>
+/* ===== ДАТЫ ===== */
+var START=new Date(2026,9,30);           // 30 октября — первое окошко
+var END=new Date(2026,11,31);            // 31 декабря — последнее
+var MSG=[
+'Привет, Котэ. Это первое окошко — дальше будет только теплее.',
+'Сегодня последний день октября, а я всё ещё считаю дни до тебя.',
+'Твои глаза — первое, что я вижу, когда закрываю свои.',
+'Ты мой родной человек. Роднее не бывает.',
+'Помню твою талию под моими руками. Скоро повторим.',
+'Ты читаешь это, а я думаю о тебе. Синхронно.',
+'Мне нравится твой смех больше, чем тишина после смены.',
+'Ты — мой дом. Даже когда дом далеко.',
+'Сегодня обними себя за меня. Крепко.',
+'Я люблю тебя не за что-то. А просто так. Всю.',
+'Твои сообщения — моя зарплата на вахте.',
+'Ты красивая даже когда злая и голодная. Особенно тогда.',
+'Мечтаю о нашем утре, когда не надо никуда идти.',
+'Ты моя любимая причина вернуться.',
+'Целую тебя в нос. Мысленно. Пока.',
+'С тобой мне не страшно стареть. Страшно только опоздать.',
+'Ты — лучшее, что случалось со мной в этом году. И в прошлом.',
+'Сегодня посмотри на звёзды — я посмотрю на те же.',
+'Люблю, как ты произносишь моё имя.',
+'Ты моя Котэ. Моя. Понимаешь?',
+'Ты моя самая красивая привычка.',
+'Твои руки — моё самое безопасное место.',
+'Я беру с тебя обещание: улыбнуться прямо сейчас. Выполняй.',
+'Скучаю по твоему запаху. По всему скучаю.',
+'Если бы дни были ступеньками, я бы бежал по ним к тебе.',
+'Люблю тебя сильнее, чем кофе по утрам. А это серьёзно.',
+'Ты — причина, по которой я считаю дни, а не деньги.',
+'Обнимаю тебя через экран. Чувствуешь? Я да.',
+'Твоя улыбка лечит лучше любых таблеток.',
+'Ноябрь заканчивается. Значит, декабрь и ты — близко.',
+'Декабрь! Месяц, в котором я вернусь к тебе.',
+'Первый день зимы, а мне тепло — это ты.',
+'Осталось совсем чуть-чуть. Держи меня в мыслях.',
+'Я уже придумал, как обниму тебя 30-го. Спина хрустнет.',
+'Ты моя зима, моё лето и всё между.',
+'Люблю тебя за то, что ты есть. И за то, какая ты.',
+'Сегодня будь добра к себе. За нас двоих.',
+'Ты самая красивая девушка на всех вахтах мира.',
+'Считаю не дни, а часы. Честно.',
+'Твои губы — моя любимая география.',
+'Я приеду и первым делом молча обниму. Долго.',
+'Ты моя причина не пить лишнего и спешить домой.',
+'Люблю, когда ты смеёшься надо мной. Это тоже любовь.',
+'Ты — мой человек. Навсегда, если согласишься.',
+'Согревайся. Я мысленно уже грею тебя.',
+'Мечтаю проснуться рядом и никуда не спешить.',
+'Ты лучше всех подарков под ёлкой. Вместе взятых.',
+'Осталось меньше, чем прошло. Держись, Котэ.',
+'Я везу тебе не подарки. Я везу себя. Целиком.',
+'Твоя талия и мои руки — скоро свидание.',
+'Люблю тебя даже когда ты не права. Особенно тогда.',
+'Ты мой самый родной человек на этой планете.',
+'Скоро буду целовать тебя вместо экрана.',
+'Ты — дом, к которому я еду через всю страну.',
+'Держи это окошко как билет: скоро посадка.',
+'Я уже слышу, как ты смеёшься 30-го.',
+'Осталось совсем ничего. Я почти дома.',
+'Ты моя самая красивая причина уставать и возвращаться.',
+'Завтра буду собирать вещи. Мысленно уже собрал.',
+'Последний день без тебя. Завтра — всё.',
+'Я ПРИЕХАЛ, Котэ. Обнимаю по-настоящему. С Новым нами.',
+'С Новым годом, моя Котэ. Следующий год — вместе.'
+];
+/* ===== ХРАНИЛИЩЕ ===== */
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+var opened=JSON.parse(ls('kote_opened')||'{}');
+var lastOpen=ls('kote_lastopen')||'';
+function todayStr(){var n=new Date();return n.getFullYear()+'-'+(n.getMonth()+1)+'-'+n.getDate()}
+function dayIdx(){var t=new Date();t.setHours(0,0,0,0);var s=new Date(START);s.setHours(0,0,0,0);return Math.floor((t-s)/86400000)}
+function dateLabel(i){var d=new Date(START.getTime()+i*86400000);return (d.getDate()<10?'0':'')+d.getDate()+'.'+((d.getMonth()+1)<10?'0':'')+(d.getMonth()+1)}
+/* ===== СЧЁТЧИК ДО НГ ===== */
+function ny(){var n=new Date();var t=new Date(n.getFullYear(),11,31,23,59,59);if(n>t)t=new Date(n.getFullYear()+1,11,31,23,59,59);return t}
+var T=ny();
+function tick(){var diff=T-Date.now();if(diff<0)diff=0;
+var d=Math.floor(diff/86400000),h=Math.floor(diff/3600000)%24,m=Math.floor(diff/60000)%60,s=Math.floor(diff/1000)%60;
+document.getElementById('dnum').textContent=d;
+document.getElementById('dclock').textContent=pad(h)+' ч : '+pad(m)+' м : '+pad(s)+' с';}
+function pad(n){return n<10?'0'+n:n}
+tick();setInterval(tick,1000);
+/* ===== СЕТКА ОКНОК ===== */
+var idx=dayIdx();var total=Math.floor((END-START)/86400000)+1;
+function render(){var g=document.getElementById('grid');g.innerHTML='';
+var cnt=0;
+for(var i=0;i<total;i++){var isOpen=!!opened[i];if(isOpen)cnt++;
+var avail=i<=idx;var isToday=i===idx&&!isOpen;
+var cls='win'+(isOpen?' open':(avail?'':' lock'))+(isToday?' today':'');
+var ic=isOpen?'❤️':(avail?(isToday?'✨':'🔓'):'');
+var w=document.createElement('div');w.className=cls;w.dataset.i=i;
+w.innerHTML='<span class="d">'+dateLabel(i)+'</span><span class="ic">'+ic+'</span>';
+w.onclick=(function(i){return function(){tap(i)}})(i);
+g.appendChild(w);}
+document.getElementById('prog').textContent='открыто '+cnt+' из '+total+' окошек';}
+function tap(i){var avail=i<=idx;
+if(opened[i]){show(i);return}
+if(!avail){toast('это окошко ещё спит 🤖 подожди до '+dateLabel(i));return}
+if(lastOpen===todayStr()){toast('одно окошко в день 🤍 следующее завтра');return}
+opened[i]=1;lastOpen=todayStr();ls('kote_opened',JSON.stringify(opened));ls('kote_lastopen',lastOpen);
+burst();show(i);render();}
+function show(i){document.getElementById('ovDate').textContent=dateLabel(i)+(i===total-2?' • ДЕНЬ ВСТРЕЧИ':i===total-1?' • НОВЫЙ ГОД':'');
+document.getElementById('ovMsg').textContent=MSG[i]||'я люблю тебя, Котэ ❤️';
+document.getElementById('ov').classList.add('show');}
+document.getElementById('ovClose').onclick=function(){document.getElementById('ov').classList.remove('show')};
+document.getElementById('ov').onclick=function(e){if(e.target.id==='ov')this.classList.remove('show')};
+/* ===== ТОСТ / ЭФФЕКТЫ ===== */
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2200)}
+function burst(){for(var k=0;k<24;k++){(function(k){setTimeout(function(){var s=document.createElement('span');s.className='pop';s.textContent=['❤️','💖','✨','🌹'][k%4];s.style.left=Math.random()*100+'vw';s.style.top=(55+Math.random()*35)+'vh';document.body.appendChild(s);setTimeout(function(){s.remove()},1400)},k*35)})(k)}}
+/* ===== ПИСЬМО ===== */
+var LETTER='Привет, моя Котэ. Я далеко — вахта, километры, чужие стены. Поэтому сделал этот календарь: каждый день по одному окошку, а внутри — мои слова для тебя. Открывай по чуть-чуть, как конфеты. 30 декабря последнее окошко я привезу сам.';
+var li=0,le=document.getElementById('type');
+(function type(){if(li<LETTER.length){le.textContent+=LETTER[li++];setTimeout(type,26)}})();
+/* ===== ПРИЧИНЫ ===== */
+var REASONS=['за то, что ты мой родной человек. ближе тебя нет','за твои глаза — в них я как дома','за черты твоего лица: знаю их наизусть, даже с закрытыми глазами','за твою талию — мои руки помнят её через тысячи километров','за наш секс — там мы разговариваем без слов','за то, что ждёшь меня с вахты','за твои вечерние сообщения, из-за которых день становится нормальным','за то, что с тобой даже тишина — не скука'];
+var rEl=document.getElementById('reason'),last=-1;
+document.getElementById('reasonBtn').onclick=function(){var k;do{k=Math.floor(Math.random()*REASONS.length)}while(k===last);last=k;
+rEl.classList.remove('show');setTimeout(function(){rEl.textContent='…'+REASONS[k];rEl.classList.add('show')},150)};
+/* ===== СЕРДЕЧКО ===== */
+var taps=0,tEl=document.getElementById('taps');
+var MILES={10:'ого, 10! считай, я обнял тебя 10 раз 🤗',25:'25! столько поцелуев привезу 30-го 💋',50:'50!! виртуальный букет, настоящий будет зимой 🌹',100:'100!!! всё, я сдаюсь — ты лучшая ❤️'};
+document.getElementById('heartBtn').onclick=function(e){taps++;tEl.textContent='сердечек: '+taps+(MILES[taps]?' — '+MILES[taps]:'');
+for(var k=0;k<3;k++){var s=document.createElement('span');s.className='pop';s.textContent=['❤️','💖','💘'][k];s.style.left=(e.clientX+(Math.random()*60-30))+'px';s.style.top=(e.clientY-10)+'px';document.body.appendChild(s);setTimeout(function(z){return function(){z.remove()}}(s),1400)}};
+/* ===== ФИНАЛ ===== */
+document.getElementById('finalBtn').onclick=function(){alert('Главный сюрприз: 30 декабря я обниму тебя по-настоящему.\nА пока этот календарь — вместо меня.\nЛюблю тебя, Котэ ❤️');burst();burst();};
+/* ===== ФОН ===== */
+for(var k=0;k<14;k++){var s=document.createElement('span');s.className='fh';s.textContent=['❤️','❄️','✨'][k%3];s.style.left=Math.random()*100+'vw';s.style.animationDuration=(9+Math.random()*10)+'s';s.style.animationDelay=(-Math.random()*10)+'s';document.body.appendChild(s)}
+render();
+</script>
+</body>
+  </html>
